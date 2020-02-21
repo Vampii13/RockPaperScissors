@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RockPaperScissorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Situation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Sieger" Type="int" Nullable="false" />
+          <Property Name="Verlierer" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zeichen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Bild" Type="varbinary(max)" />
+          <Property Name="Name" Type="varchar" MaxLength="20" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Situation_Zeichen">
+          <End Role="Zeichen" Type="Self.Zeichen" Multiplicity="1" />
+          <End Role="Situation" Type="Self.Situation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zeichen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Situation">
+              <PropertyRef Name="Sieger" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Situation_Zeichen1">
+          <End Role="Zeichen" Type="Self.Zeichen" Multiplicity="1" />
+          <End Role="Situation" Type="Self.Situation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zeichen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Situation">
+              <PropertyRef Name="Verlierer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RockPaperScissorModelStoreContainer">
+          <EntitySet Name="Situation" EntityType="Self.Situation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zeichen" EntityType="Self.Zeichen" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Situation_Zeichen" Association="Self.FK_Situation_Zeichen">
+            <End Role="Zeichen" EntitySet="Zeichen" />
+            <End Role="Situation" EntitySet="Situation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Situation_Zeichen1" Association="Self.FK_Situation_Zeichen1">
+            <End Role="Zeichen" EntitySet="Zeichen" />
+            <End Role="Situation" EntitySet="Situation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RockPaperScissorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Situation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Sieger" Type="Int32" Nullable="false" />
+          <Property Name="Verlierer" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Zeichen" Relationship="Self.FK_Situation_Zeichen" FromRole="Situation" ToRole="Zeichen" />
+          <NavigationProperty Name="Zeichen1" Relationship="Self.FK_Situation_Zeichen1" FromRole="Situation" ToRole="Zeichen" />
+        </EntityType>
+        <EntityType Name="Zeichen">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Bild" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Situation" Relationship="Self.FK_Situation_Zeichen" FromRole="Zeichen" ToRole="Situation" />
+          <NavigationProperty Name="Situation1" Relationship="Self.FK_Situation_Zeichen1" FromRole="Zeichen" ToRole="Situation" />
+        </EntityType>
+        <Association Name="FK_Situation_Zeichen">
+          <End Role="Zeichen" Type="Self.Zeichen" Multiplicity="1" />
+          <End Role="Situation" Type="Self.Situation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zeichen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Situation">
+              <PropertyRef Name="Sieger" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Situation_Zeichen1">
+          <End Role="Zeichen" Type="Self.Zeichen" Multiplicity="1" />
+          <End Role="Situation" Type="Self.Situation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zeichen">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Situation">
+              <PropertyRef Name="Verlierer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RockPaperScissorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Situation" EntityType="Self.Situation" />
+          <EntitySet Name="Zeichen" EntityType="Self.Zeichen" />
+          <AssociationSet Name="FK_Situation_Zeichen" Association="Self.FK_Situation_Zeichen">
+            <End Role="Zeichen" EntitySet="Zeichen" />
+            <End Role="Situation" EntitySet="Situation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Situation_Zeichen1" Association="Self.FK_Situation_Zeichen1">
+            <End Role="Zeichen" EntitySet="Zeichen" />
+            <End Role="Situation" EntitySet="Situation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RockPaperScissorModelStoreContainer" CdmEntityContainer="RockPaperScissorEntities">
+          <EntitySetMapping Name="Situation">
+            <EntityTypeMapping TypeName="RockPaperScissorModel.Situation">
+              <MappingFragment StoreEntitySet="Situation">
+                <ScalarProperty Name="Sieger" ColumnName="Sieger" />
+                <ScalarProperty Name="Verlierer" ColumnName="Verlierer" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zeichen">
+            <EntityTypeMapping TypeName="RockPaperScissorModel.Zeichen">
+              <MappingFragment StoreEntitySet="Zeichen">
+                <ScalarProperty Name="Bild" ColumnName="Bild" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
